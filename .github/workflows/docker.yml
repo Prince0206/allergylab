@@ -14,3 +14,13 @@ jobs:
         docker build -t cloud255/al-app:latest ./app
         docker build -t cloud255/al-db-loader:latest ./db-loader
         docker build -t cloud255/al-email:latest ./email
+    - name: Log in to Docker
+      uses: docker/login-action@v3
+      with:
+        username: cloud255
+        password: ${{ secrets.DOCKER_TOKEN }}
+    - name: Push images to DockerHub
+      run: |
+        docker push cloud255/al-app:latest
+        docker push cloud255/al-db-loader:latest
+        docker push cloud255/al-email:latest
